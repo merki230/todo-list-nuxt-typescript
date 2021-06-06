@@ -51,7 +51,12 @@
     </b-row>
     <b-row class="mx-1 px-5 pb-3 w-80">
       <b-col class="mx-auto">
-        <ToDoItem :item="item" v-for="(item, index) in items" :key="index" />
+        <ToDoItem
+          v-for="(item, index) in items"
+          :key="index"
+          :item="item"
+          @onCheckToggle="onChecItemkToggle"
+        />
       </b-col>
     </b-row>
   </b-container>
@@ -60,7 +65,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import ToDoItem from '~/components/ToDoItem.vue'
-import {Item} from '~/models/Item'
+import { Item } from '~/models/Item'
 
 export default Vue.extend({
   components: { ToDoItem },
@@ -75,27 +80,32 @@ export default Vue.extend({
       { id: 1, name: 'Added date' },
       { id: 2, name: 'Due date' },
     ],
-    items:[
+    items: [
       {
         id: 1,
-        label: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum sit eaque quo ipsam tenetur! Nisi incidunt,",
-        isCheck : false,
-        dueDate : new Date('2021-07-10'),
+        label:
+          'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum sit eaque quo ipsam tenetur! Nisi incidunt,',
+        isCheck: false,
+        dueDate: new Date('2021-07-10'),
         createDate: new Date('2021-07-10'),
       } as Item,
-       {
+      {
         id: 2,
-        label: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum sit eaque quo ipsam tenetur! Nisi incidunt,",
-        isCheck : false,
-        dueDate : new Date('2021-07-10'),
+        label:
+          'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum sit eaque quo ipsam tenetur! Nisi incidunt,',
+        isCheck: false,
+        dueDate: new Date('2021-07-10'),
         createDate: new Date('2021-07-10'),
-      } as Item
-    ]
+      } as Item,
+    ],
   }),
-  methods:{
-    onNewItem(item: Item){
-      this.items.push(item);
-    }
-  }
+  methods: {
+    onNewItem(item: Item) {
+      this.items.push(item)
+    },
+    onChecItemkToggle(item: Item) {
+      item.isCheck = !item.isCheck
+    },
+  },
 })
 </script>
