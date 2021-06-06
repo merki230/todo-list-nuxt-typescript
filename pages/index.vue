@@ -1,5 +1,5 @@
 <template>
-  <b-container class="m-5 p-2 rounded mx-auto bg-light shadow">
+  <b-container class="m-5 rounded mx-auto">
     <b-row>
       <b-col>
         <div
@@ -14,29 +14,8 @@
       </b-col>
     </b-row>
     <b-row class="m-1 p-3">
-      <b-col cols="11" class="mx-auto">
-        <b-row
-          class="bg-white rounded shadow-sm p-2 add-todo-wrapper align-items-center justify-content-center"
-        >
-          <b-col>
-            <b-form-input
-              class="border-0 add-todo-input bg-transparent rounded"
-              type="text"
-              size="lg"
-              placeholder="Add new .."
-            />
-          </b-col>
-          <b-col cols="12">
-            <b-form-input
-              class="border-0 add-todo-input bg-transparent rounded"
-              type="date"
-              size="lg"
-            />
-          </b-col>
-          <b-col>
-            <b-button variant="primary" size="sm">Add</b-button>
-          </b-col>
-        </b-row>
+      <b-col class="mx-auto">
+        <AddToDoItem @onSubmit="onNewItem" />
       </b-col>
     </b-row>
     <div class="p-2 mx-4 border-black-25 border-bottom"></div>
@@ -59,21 +38,21 @@
           class="custom-select custom-select-sm btn my-2"
         />
         <font-awesome-icon
-            :icon="['fas', 'sort-amount-up']"
-            class="text-info"
-            title="Ascending"
-          />
-          <font-awesome-icon
-            :icon="['fas', 'sort-amount-down']"
-            class="text-info d-none"
-            title="Descending"
-          />
+          :icon="['fas', 'sort-amount-up']"
+          class="text-info"
+          title="Ascending"
+        />
+        <font-awesome-icon
+          :icon="['fas', 'sort-amount-down']"
+          class="text-info d-none"
+          title="Descending"
+        />
       </b-col>
     </b-row>
     <b-row class="mx-1 px-5 pb-3 w-80">
-       <b-col class="mx-auto">
-         <to-do-item v-for="(item, index) in 20" :key="index"/>
-       </b-col>
+      <b-col class="mx-auto">
+        <ToDoItem :item="item" v-for="(item, index) in items" :key="index" />
+      </b-col>
     </b-row>
   </b-container>
 </template>
@@ -81,6 +60,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import ToDoItem from '~/components/ToDoItem.vue'
+import {Item} from '~/models/Item'
 
 export default Vue.extend({
   components: { ToDoItem },
@@ -95,6 +75,27 @@ export default Vue.extend({
       { id: 1, name: 'Added date' },
       { id: 2, name: 'Due date' },
     ],
+    items:[
+      {
+        id: 1,
+        label: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum sit eaque quo ipsam tenetur! Nisi incidunt,",
+        isCheck : false,
+        dueDate : new Date('2021-07-10'),
+        createDate: new Date('2021-07-10'),
+      } as Item,
+       {
+        id: 2,
+        label: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum sit eaque quo ipsam tenetur! Nisi incidunt,",
+        isCheck : false,
+        dueDate : new Date('2021-07-10'),
+        createDate: new Date('2021-07-10'),
+      } as Item
+    ]
   }),
+  methods:{
+    onNewItem(item: Item){
+      this.items.push(item);
+    }
+  }
 })
 </script>
